@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      dateOfBith: {
+      dateOfBirth: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
