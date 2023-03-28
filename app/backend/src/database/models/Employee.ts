@@ -20,18 +20,23 @@ Employee.init({
   },
   name: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   cpf: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   salary: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   dateOfBirth: {
     type: DataTypes.DATEONLY,
+    allowNull: false,
   },
   departmentId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
 }, {
   sequelize: db,
@@ -40,7 +45,7 @@ Employee.init({
   timestamps: false,
 });
 
-Employee.belongsTo(Department, { foreignKey: 'departmentId' });
+Employee.belongsTo(Department, { foreignKey: 'departmentId', as: 'departmentName' });
 Department.hasMany(Employee, { foreignKey: 'id' })
 
 export default Employee;
