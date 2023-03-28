@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     working_dir: /app-backend
     volumes:
-      - ./:/app-backend
+      - ./backend:/app-backend
     ports:
       - 3001:3001
     environment:
