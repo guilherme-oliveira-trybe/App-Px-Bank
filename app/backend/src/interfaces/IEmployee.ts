@@ -1,6 +1,6 @@
 export interface ICreate {
   name: string,
-  cpf: number,
+  cpf: string,
   salary: number,
   dateOfBirth: Date,
   departmentId: number,
