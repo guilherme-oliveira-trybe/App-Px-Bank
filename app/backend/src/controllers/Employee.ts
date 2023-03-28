@@ -14,6 +14,20 @@ export default class EmployeeController {
   public async create(req: Request, res: Response) {
     const result = await this._employeeService.create(req.body as ICreate);
 
+    return res.status(201).json(result);
+  }
+
+  public async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const employee = {...req.body, id: Number(id)}
+    const result = await this._employeeService.update(employee);
+
     return res.status(200).json(result);
+  }
+
+  public async delete(req: Request, res: Response) {
+    await this._employeeService.delete(Number(req.params.id));
+
+    return res.status(204).end();
   }
 }
