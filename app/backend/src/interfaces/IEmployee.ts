@@ -5,3 +5,7 @@ export interface ICreate {
   dateOfBirth: Date,
   departmentId: number,
 }
+
+export default interface IUpdate extends ICreate {
+  id: number,
+}
