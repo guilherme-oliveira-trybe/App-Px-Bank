@@ -8,7 +8,7 @@
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "prestart": "npm run build && npm run db:reset",
+    "initialize": "npm run build && npm run db:reset",
     "dev": "ts-node-dev src/server.ts",
     "start": "node dist/src/server.js"
   },
