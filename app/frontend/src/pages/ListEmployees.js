@@ -3,18 +3,23 @@ import Button from '../components/Button';
 import FilterEmployee from '../components/FilterEmployee';
 import TableEmployees from '../components/TableEmployees';
 import Context from '../context/Context';
-import { getAllDepartments } from '../services/api';
+import { getAllDepartments, getAllEmployees } from '../services/api';
 
 function ListEmployees() {
-  const { setAllDepartment } = useContext(Context);
+  const { setAllDepartment, setAllEmployees } = useContext(Context);
 
   useEffect(() => {
     const getDepartments = async () => {
       const data = await getAllDepartments();
       setAllDepartment(data);
     };
+    const getEmployees = async () => {
+      const data = await getAllEmployees();
+      setAllEmployees(data);
+    };
     getDepartments();
-  }, [setAllDepartment]);
+    getEmployees();
+  }, [setAllDepartment, setAllEmployees]);
 
   return (
     <section>
