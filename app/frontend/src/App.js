@@ -1,10 +1,14 @@
 import './App.css';
+import Provider from './context/Provider';
+import ListEmployees from './pages/ListEmployees';
 
 function App() {
   return (
-    <main className="App">
-      <h1>Hello World</h1>
-    </main>
+    <Provider>
+      <main className="App">
+        <ListEmployees />
+      </main>
+    </Provider>
   );
 }
 
