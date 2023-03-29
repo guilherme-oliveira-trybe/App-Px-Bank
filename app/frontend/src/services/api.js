@@ -7,3 +7,9 @@ export const getAllDepartments = async () => {
 
   return data;
 };
+
+export const getAllEmployees = async () => {
+  const data = await api.get('/employees').then((response) => response.data);
+
+  return data;
+};
