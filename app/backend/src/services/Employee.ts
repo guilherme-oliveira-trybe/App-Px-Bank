@@ -7,6 +7,7 @@ export default class EmployeeService {
 
   public async getAll() {
     const employees = await this._employeeModel.findAll({
+      order: [['name', 'ASC']],
       include: {
         model: Department,
         as: 'departmentName',
