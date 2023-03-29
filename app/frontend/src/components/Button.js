@@ -1,9 +1,12 @@
 import React from 'react';
 
 // eslint-disable-next-line react/prop-types
-function Button({ children, type }) {
+function Button({ children, type, onClick }) {
   return (
-    <button type={ type }>
+    <button
+      type={ type }
+      onClick={ onClick }
+    >
       {children}
     </button>
   );
