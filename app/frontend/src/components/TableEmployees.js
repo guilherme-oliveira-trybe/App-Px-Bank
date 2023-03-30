@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import { formatDate } from '../assets/formatDate';
+import { formatSalary } from '../assets/formatSalary';
 import Context from '../context/Context';
 import Button from './Button';
 import ExcludeModal from './ExcludeModal';
@@ -36,8 +38,8 @@ function TableEmployees() {
           <tr key={ employee.id }>
             <td>{employee.name}</td>
             <td>{employee.departmentName.department}</td>
-            <td>{employee.salary}</td>
-            <td>{employee.dateOfBirth}</td>
+            <td>{formatSalary(employee.salary)}</td>
+            <td>{formatDate(employee.dateOfBirth)}</td>
             <td>
               <Button>Editar</Button>
               <Button
