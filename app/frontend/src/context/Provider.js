@@ -6,9 +6,12 @@ function Provider({ children }) {
   const [allDepartment, setAllDepartment] = useState([]);
   const [allEmployees, setAllEmployees] = useState([]);
   const [filterEmployees, setFilterEmployees] = useState([]);
+  const [excludeModal, setExcludeModal] = useState(false);
+
+  const openExcludeModal = () => setExcludeModal(true);
+  const closeExcludeModal = () => setExcludeModal(false);
 
   const filterByNameAndDepartment = useCallback((name, department) => {
-    console.log(name, department);
     const employeeFound = allEmployees.filter((employee) => (
       employee.name.toLowerCase().includes(name)
     )).filter((employee) => employee.departmentName.department === department);
@@ -54,8 +57,11 @@ function Provider({ children }) {
     setAllEmployees,
     filterEmployees,
     setFilterEmployees,
+    excludeModal,
+    openExcludeModal,
+    closeExcludeModal,
     filters,
-  }), [allDepartment, allEmployees, filterEmployees, filters]);
+  }), [allDepartment, allEmployees, filterEmployees, excludeModal, filters]);
 
   return (
     <Context.Provider value={ value }>
