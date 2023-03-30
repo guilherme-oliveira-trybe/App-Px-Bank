@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
 import Button from './Button';
+import ExcludeModal from './ExcludeModal';
 
 function TableEmployees() {
-  const { filterEmployees } = useContext(Context);
+  const { filterEmployees, openExcludeModal } = useContext(Context);
 
   return (
     <table>
@@ -25,7 +26,12 @@ function TableEmployees() {
             <td>{employee.dateOfBirth}</td>
             <td>
               <Button>Editar</Button>
-              <Button>Excluir</Button>
+              <Button onClick={ openExcludeModal }>Excluir</Button>
+              <ExcludeModal
+                name={ employee.name }
+                cpf={ employee.cpf }
+                id={ employee.id }
+              />
             </td>
           </tr>
         ))}
