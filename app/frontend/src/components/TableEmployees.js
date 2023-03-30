@@ -1,10 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Context from '../context/Context';
 import Button from './Button';
 import ExcludeModal from './ExcludeModal';
 
 function TableEmployees() {
+  const INITIAL_STATE = {
+    id: '',
+    name: '',
+    cpf: '',
+    salary: '',
+    dateOfBirth: '',
+  };
+
   const { filterEmployees, openExcludeModal } = useContext(Context);
+  const [employeeData, setEmployeeData] = useState(INITIAL_STATE);
+
+  const handleOnClick = (values) => {
+    setEmployeeData(values);
+    openExcludeModal();
+  };
 
   return (
     <table>
@@ -26,15 +40,20 @@ function TableEmployees() {
             <td>{employee.dateOfBirth}</td>
             <td>
               <Button>Editar</Button>
-              <Button onClick={ openExcludeModal }>Excluir</Button>
-              <ExcludeModal
-                name={ employee.name }
-                cpf={ employee.cpf }
-                id={ employee.id }
-              />
+              <Button
+                onClick={ () => handleOnClick(employee) }
+              >
+                Excluir
+
+              </Button>
             </td>
           </tr>
         ))}
+        <ExcludeModal
+          name={ employeeData.name }
+          cpf={ employeeData.cpf }
+          id={ employeeData.id }
+        />
       </tbody>
     </table>
   );
