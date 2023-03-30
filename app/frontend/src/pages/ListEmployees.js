@@ -6,7 +6,7 @@ import Context from '../context/Context';
 import { getAllDepartments, getAllEmployees } from '../services/api';
 
 function ListEmployees() {
-  const { setAllDepartment, setAllEmployees } = useContext(Context);
+  const { setAllDepartment, setAllEmployees, setFilterEmployees } = useContext(Context);
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -16,10 +16,11 @@ function ListEmployees() {
     const getEmployees = async () => {
       const data = await getAllEmployees();
       setAllEmployees(data);
+      setFilterEmployees(data);
     };
     getDepartments();
     getEmployees();
-  }, [setAllDepartment, setAllEmployees]);
+  }, [setAllDepartment, setAllEmployees, setFilterEmployees]);
 
   return (
     <section>
