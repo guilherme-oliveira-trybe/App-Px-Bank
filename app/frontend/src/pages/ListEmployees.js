@@ -4,9 +4,15 @@ import FilterEmployee from '../components/FilterEmployee';
 import TableEmployees from '../components/TableEmployees';
 import Context from '../context/Context';
 import { getAllDepartments, getAllEmployees } from '../services/api';
+import CreateModal from '../components/CreateModal';
 
 function ListEmployees() {
-  const { setAllDepartment, setAllEmployees, setFilterEmployees } = useContext(Context);
+  const {
+    setAllDepartment,
+    setAllEmployees,
+    setFilterEmployees,
+    openCreateModal,
+  } = useContext(Context);
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -26,7 +32,8 @@ function ListEmployees() {
     <section>
       <FilterEmployee />
       <TableEmployees />
-      <Button>Novo Funcionário</Button>
+      <Button onClick={ openCreateModal }>Novo Funcionário</Button>
+      <CreateModal />
     </section>
   );
 }
