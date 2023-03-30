@@ -3,7 +3,7 @@ import Context from '../context/Context';
 import Button from './Button';
 
 function TableEmployees() {
-  const { allEmployees } = useContext(Context);
+  const { filterEmployees } = useContext(Context);
 
   return (
     <table>
@@ -17,7 +17,7 @@ function TableEmployees() {
         </tr>
       </thead>
       <tbody>
-        {allEmployees.map((employee) => (
+        {filterEmployees.map((employee) => (
           <tr key={ employee.id }>
             <td>{employee.name}</td>
             <td>{employee.departmentName.department}</td>
