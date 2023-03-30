@@ -7,9 +7,12 @@ function Provider({ children }) {
   const [allEmployees, setAllEmployees] = useState([]);
   const [filterEmployees, setFilterEmployees] = useState([]);
   const [excludeModal, setExcludeModal] = useState(false);
+  const [createModal, setCreateModal] = useState(false);
 
   const openExcludeModal = () => setExcludeModal(true);
   const closeExcludeModal = () => setExcludeModal(false);
+  const openCreateModal = () => setCreateModal(true);
+  const closeCreateModal = () => setCreateModal(false);
 
   const filterByNameAndDepartment = useCallback((name, department) => {
     const employeeFound = allEmployees.filter((employee) => (
@@ -50,18 +53,30 @@ function Provider({ children }) {
     }
   }, [allEmployees, filterByNameAndDepartment, filterByName, filterByDepartment]);
 
-  const value = useMemo(() => ({
-    allDepartment,
-    setAllDepartment,
-    allEmployees,
-    setAllEmployees,
-    filterEmployees,
-    setFilterEmployees,
-    excludeModal,
-    openExcludeModal,
-    closeExcludeModal,
-    filters,
-  }), [allDepartment, allEmployees, filterEmployees, excludeModal, filters]);
+  const value = useMemo(
+    () => ({
+      allDepartment,
+      setAllDepartment,
+      allEmployees,
+      setAllEmployees,
+      filterEmployees,
+      setFilterEmployees,
+      excludeModal,
+      openExcludeModal,
+      closeExcludeModal,
+      createModal,
+      openCreateModal,
+      closeCreateModal,
+      filters,
+    }),
+    [
+      allDepartment,
+      allEmployees,
+      filterEmployees,
+      excludeModal,
+      createModal,
+      filters],
+  );
 
   return (
     <Context.Provider value={ value }>
