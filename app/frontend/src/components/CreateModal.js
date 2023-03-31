@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
+import CurrencyInput from 'react-currency-input-field';
 import { validationForm } from '../assets/validationForm';
 import Context from '../context/Context';
 import { createEmployee, getAllEmployees } from '../services/api';
@@ -33,7 +34,7 @@ function CreateModal() {
   const [cpf, setCpf] = useState('');
   const [departmentId, setDepartmentId] = useState();
   const [departmentName, setDepartmentName] = useState('');
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState();
   const [dateOfBirth, setDateOfBirth] = useState('');
 
   const handleSubmit = (event) => {
@@ -46,7 +47,16 @@ function CreateModal() {
     setDepartmentId(id);
   };
 
-  const handleOnClick = async () => {
+  const cleanStates = () => {
+    setName('');
+    setCpf('');
+    setDepartmentId(undefined);
+    setDepartmentName('');
+    setSalary(undefined);
+    setDateOfBirth('');
+  };
+
+  const submitOnClick = async () => {
     const body = {
       name,
       cpf,
@@ -65,7 +75,13 @@ function CreateModal() {
     setAllEmployees(data);
     setFilterEmployees(data);
 
+    cleanStates();
     return closeCreateModal();
+  };
+
+  const cancelOnClick = () => {
+    cleanStates();
+    closeCreateModal();
   };
 
   return (
@@ -104,12 +120,15 @@ function CreateModal() {
             ))}
           </select>
         </label>
-        <label>
+        <label htmlFor="salary-input">
           Salário:
-          <input
-            type="number"
+          <CurrencyInput
+            id="salary-input"
+            allowDecimals={ false }
+            prefix="R$ "
+            defaultValue={ 0 }
             value={ salary }
-            onChange={ ({ target }) => setSalary(target.value) }
+            onValueChange={ (value) => setSalary(value) }
           />
         </label>
         <label>
@@ -122,14 +141,14 @@ function CreateModal() {
         </label>
       </form>
       <Button
-        onClick={ closeCreateModal }
+        onClick={ cancelOnClick }
         type="reset"
       >
         Cancelar
 
       </Button>
       <Button
-        onClick={ handleOnClick }
+        onClick={ submitOnClick }
         disabled={ validationForm({ name, salary, cpf, departmentId, dateOfBirth }) }
       >
         Salvar
