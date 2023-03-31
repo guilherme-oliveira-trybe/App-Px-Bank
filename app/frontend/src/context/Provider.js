@@ -6,16 +6,25 @@ function Provider({ children }) {
   const [allDepartment, setAllDepartment] = useState([]);
   const [allEmployees, setAllEmployees] = useState([]);
   const [filterEmployees, setFilterEmployees] = useState([]);
-  const [excludeModal, setExcludeModal] = useState(false);
-  const [createModal, setCreateModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  const [modal, setModal] = useState({
+    createModal: false,
+    editModal: false,
+    excludeModal: false,
+  });
 
-  const openExcludeModal = () => setExcludeModal(true);
-  const closeExcludeModal = () => setExcludeModal(false);
-  const openCreateModal = () => setCreateModal(true);
-  const closeCreateModal = () => setCreateModal(false);
-  const openEditModal = () => setEditModal(true);
-  const closeEditModal = () => setEditModal(false);
+  const openModal = useCallback((modalType) => {
+    setModal({
+      ...modal,
+      [modalType]: true,
+    });
+  }, [modal]);
+
+  const closeModal = useCallback((modalType) => {
+    setModal({
+      ...modal,
+      [modalType]: false,
+    });
+  }, [modal]);
 
   const filterByNameAndDepartment = useCallback((name, department) => {
     const employeeFound = allEmployees.filter((employee) => (
@@ -56,6 +65,10 @@ function Provider({ children }) {
     }
   }, [allEmployees, filterByNameAndDepartment, filterByName, filterByDepartment]);
 
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+  }, []);
+
   const value = useMemo(
     () => ({
       allDepartment,
@@ -64,24 +77,20 @@ function Provider({ children }) {
       setAllEmployees,
       filterEmployees,
       setFilterEmployees,
-      excludeModal,
-      openExcludeModal,
-      closeExcludeModal,
-      createModal,
-      openCreateModal,
-      closeCreateModal,
-      editModal,
-      openEditModal,
-      closeEditModal,
+      modal,
+      openModal,
+      closeModal,
+      handleSubmit,
       filters,
     }),
     [
       allDepartment,
       allEmployees,
       filterEmployees,
-      excludeModal,
-      createModal,
-      editModal,
+      modal,
+      openModal,
+      closeModal,
+      handleSubmit,
       filters,
     ],
   );

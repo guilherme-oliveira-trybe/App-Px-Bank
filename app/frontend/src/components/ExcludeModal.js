@@ -21,8 +21,8 @@ Modal.setAppElement('#root');
 
 function ExcludeModal({ name, cpf, id }) {
   const {
-    excludeModal,
-    closeExcludeModal,
+    modal,
+    closeModal,
     setAllEmployees,
     setFilterEmployees,
   } = useContext(Context);
@@ -34,19 +34,19 @@ function ExcludeModal({ name, cpf, id }) {
     setAllEmployees(data);
     setFilterEmployees(data);
 
-    return closeExcludeModal();
+    return closeModal('excludeModal');
   };
 
   return (
     <Modal
-      isOpen={ excludeModal }
-      onRequestClose={ closeExcludeModal }
+      isOpen={ modal.excludeModal }
+      onRequestClose={ () => closeModal('excludeModal') }
       style={ customStyles }
     >
       <Text text="Deseja excluir o funcionário abaixo?" />
       <Text text={ name } />
       <Text text={ cpf } />
-      <Button onClick={ closeExcludeModal }>Cancelar</Button>
+      <Button onClick={ () => closeModal('excludeModal') }>Cancelar</Button>
       <Button onClick={ handleOnClick }>Excluir</Button>
     </Modal>
   );

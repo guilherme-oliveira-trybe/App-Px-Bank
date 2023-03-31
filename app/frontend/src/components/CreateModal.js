@@ -107,7 +107,7 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
   return (
     <Modal
       isOpen={ isOpen }
-      onRequestClose={ close }
+      onRequestClose={ () => close() }
       style={ customStyles }
     >
       <Title title={ text } />
