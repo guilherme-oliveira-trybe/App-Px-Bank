@@ -8,11 +8,14 @@ function Provider({ children }) {
   const [filterEmployees, setFilterEmployees] = useState([]);
   const [excludeModal, setExcludeModal] = useState(false);
   const [createModal, setCreateModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   const openExcludeModal = () => setExcludeModal(true);
   const closeExcludeModal = () => setExcludeModal(false);
   const openCreateModal = () => setCreateModal(true);
   const closeCreateModal = () => setCreateModal(false);
+  const openEditModal = () => setEditModal(true);
+  const closeEditModal = () => setEditModal(false);
 
   const filterByNameAndDepartment = useCallback((name, department) => {
     const employeeFound = allEmployees.filter((employee) => (
@@ -67,6 +70,9 @@ function Provider({ children }) {
       createModal,
       openCreateModal,
       closeCreateModal,
+      editModal,
+      openEditModal,
+      closeEditModal,
       filters,
     }),
     [
@@ -75,7 +81,9 @@ function Provider({ children }) {
       filterEmployees,
       excludeModal,
       createModal,
-      filters],
+      editModal,
+      filters,
+    ],
   );
 
   return (

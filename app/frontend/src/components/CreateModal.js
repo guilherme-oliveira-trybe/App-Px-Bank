@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import CurrencyInput from 'react-currency-input-field';
 import { validationForm } from '../assets/validationForm';
 import Context from '../context/Context';
-import { createEmployee, getAllEmployees } from '../services/api';
+import { createEmployee, getAllEmployees, updateEmployee } from '../services/api';
 import Button from './Button';
 import Text from './Text';
 
@@ -21,10 +21,9 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 // eslint-disable-next-line react/prop-types
-function CreateModal() {
+function CreateModal({ text, isOpen, close, editInfo = {} }) {
   const {
-    createModal,
-    closeCreateModal,
+    // allEmployees,
     allDepartment,
     setAllEmployees,
     setFilterEmployees,
@@ -36,6 +35,20 @@ function CreateModal() {
   const [departmentName, setDepartmentName] = useState('');
   const [salary, setSalary] = useState();
   const [dateOfBirth, setDateOfBirth] = useState('');
+
+  console.log(editInfo);
+
+  useEffect(() => {
+    const editMode = (values) => {
+      if (values.id) {
+        setName(values.name);
+        setCpf(values.cpf);
+        setSalary(values.salary);
+        setDateOfBirth(values.dateOfBirth);
+      }
+    };
+    editMode(editInfo);
+  }, [editInfo]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,10 +78,18 @@ function CreateModal() {
       dateOfBirth,
     };
 
-    try {
-      await createEmployee(body);
-    } catch (error) {
-      console.error(error);
+    if (editInfo.id) {
+      try {
+        await updateEmployee(editInfo.id, body);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        await createEmployee(body);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     const data = await getAllEmployees();
@@ -76,21 +97,21 @@ function CreateModal() {
     setFilterEmployees(data);
 
     cleanStates();
-    return closeCreateModal();
+    return close();
   };
 
   const cancelOnClick = () => {
     cleanStates();
-    closeCreateModal();
+    close();
   };
 
   return (
     <Modal
-      isOpen={ createModal }
-      onRequestClose={ closeCreateModal }
+      isOpen={ isOpen }
+      onRequestClose={ close }
       style={ customStyles }
     >
-      <Text text="Novo Funcionário" />
+      <Text text={ text } />
       <form onSubmit={ handleSubmit }>
         <label>
           Nome:

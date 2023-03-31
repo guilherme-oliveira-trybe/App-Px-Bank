@@ -3,6 +3,7 @@ import { formatDate } from '../assets/formatDate';
 import { formatSalary } from '../assets/formatSalary';
 import Context from '../context/Context';
 import Button from './Button';
+import CreateModal from './CreateModal';
 import ExcludeModal from './ExcludeModal';
 
 function TableEmployees() {
@@ -14,12 +15,24 @@ function TableEmployees() {
     dateOfBirth: '',
   };
 
-  const { filterEmployees, openExcludeModal } = useContext(Context);
+  const {
+    filterEmployees,
+    openExcludeModal,
+    openEditModal,
+    closeEditModal,
+    editModal,
+  } = useContext(Context);
+
   const [employeeData, setEmployeeData] = useState(INITIAL_STATE);
 
-  const handleOnClick = (values) => {
+  const excluseOnClick = (values) => {
     setEmployeeData(values);
     openExcludeModal();
+  };
+
+  const editOnClick = (values) => {
+    setEmployeeData(values);
+    openEditModal();
   };
 
   return (
@@ -41,9 +54,12 @@ function TableEmployees() {
             <td>{formatSalary(employee.salary)}</td>
             <td>{formatDate(employee.dateOfBirth)}</td>
             <td>
-              <Button>Editar</Button>
+              <Button onClick={ () => editOnClick(employee) }>
+                Editar
+
+              </Button>
               <Button
-                onClick={ () => handleOnClick(employee) }
+                onClick={ () => excluseOnClick(employee) }
               >
                 Excluir
 
@@ -55,6 +71,12 @@ function TableEmployees() {
           name={ employeeData.name }
           cpf={ employeeData.cpf }
           id={ employeeData.id }
+        />
+        <CreateModal
+          isOpen={ editModal }
+          text="Editar Funcionário"
+          close={ closeEditModal }
+          editInfo={ employeeData }
         />
       </tbody>
     </table>
