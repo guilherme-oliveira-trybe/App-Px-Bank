@@ -17,22 +17,21 @@ function TableEmployees() {
 
   const {
     filterEmployees,
-    openExcludeModal,
-    openEditModal,
-    closeEditModal,
-    editModal,
+    modal,
+    openModal,
+    closeModal,
   } = useContext(Context);
 
   const [employeeData, setEmployeeData] = useState(INITIAL_STATE);
 
   const excluseOnClick = (values) => {
     setEmployeeData(values);
-    openExcludeModal();
+    openModal('excludeModal');
   };
 
   const editOnClick = (values) => {
     setEmployeeData(values);
-    openEditModal();
+    openModal('editModal');
   };
 
   return (
@@ -73,9 +72,9 @@ function TableEmployees() {
           id={ employeeData.id }
         />
         <CreateModal
-          isOpen={ editModal }
+          isOpen={ modal.editModal }
           text="Editar Funcionário"
-          close={ closeEditModal }
+          close={ () => closeModal('editModal') }
           editInfo={ employeeData }
         />
       </tbody>

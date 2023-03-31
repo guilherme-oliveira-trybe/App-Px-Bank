@@ -1,42 +1,51 @@
 import React, { useContext, useState } from 'react';
 import Context from '../context/Context';
 import Button from './Button';
+import Input from './Input';
+import Select from './Select';
+import Form from './Form';
 
 function FilterEmployee() {
-  const { allDepartment, filters } = useContext(Context);
+  const { allDepartment, filters, handleSubmit } = useContext(Context);
   const [name, setName] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
   return (
-    <form onSubmit={ handleSubmit }>
-      <label>
+    <Form onSubmit={ handleSubmit }>
+      <label htmlFor="input-search">
         Nome:
-        <input
+        <Input
+          id="input-search"
           type="text"
           value={ name }
           onChange={ ({ target }) => setName(target.value) }
         />
       </label>
-      <label>
+      <label htmlFor="select-department-filter">
         Departamento:
-        <select
+        <Select
+          id="select-department-filter"
           value={ filterDepartment }
           onChange={ ({ target }) => setFilterDepartment(target.value) }
         >
           <option value="">Selecione o Departamento</option>
           {allDepartment.map(({ department, id }) => (
-            <option key={ id }>{department}</option>
+            <option
+              key={ id }
+            >
+              {department}
+
+            </option>
           ))}
-        </select>
+        </Select>
       </label>
-      <Button type="submit" onClick={ () => filters(name, filterDepartment) }>
+      <Button
+        type="submit"
+        onClick={ () => filters(name, filterDepartment) }
+      >
         Pesquisa
       </Button>
-    </form>
+    </Form>
   );
 }
 

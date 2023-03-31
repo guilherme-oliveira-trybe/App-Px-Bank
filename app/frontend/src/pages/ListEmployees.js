@@ -11,9 +11,9 @@ function ListEmployees() {
     setAllDepartment,
     setAllEmployees,
     setFilterEmployees,
-    openCreateModal,
-    closeCreateModal,
-    createModal,
+    modal,
+    openModal,
+    closeModal,
   } = useContext(Context);
 
   useEffect(() => {
@@ -35,15 +35,15 @@ function ListEmployees() {
       <FilterEmployee />
       <TableEmployees />
       <Button
-        onClick={ openCreateModal }
+        onClick={ () => openModal('createModal') }
       >
         Novo Funcionário
 
       </Button>
       <CreateModal
-        isOpen={ createModal }
+        isOpen={ modal.createModal }
         text="Novo Funcionário"
-        close={ closeCreateModal }
+        close={ () => closeModal('createModal') }
       />
     </section>
   );

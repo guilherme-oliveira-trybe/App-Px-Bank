@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 function Button({ children, type, onClick, disabled = false }) {
   return (
     <button
@@ -12,5 +12,11 @@ function Button({ children, type, onClick, disabled = false }) {
     </button>
   );
 }
+
+Button.propTypes = {
+  children: PropTypes.node,
+  type: PropTypes.string,
+  onClick: PropTypes.func,
+}.isRequired;
 
 export default Button;
