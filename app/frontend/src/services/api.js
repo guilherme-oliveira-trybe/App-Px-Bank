@@ -25,3 +25,9 @@ export const createEmployee = async (body) => {
 
   return data;
 };
+
+export const updateEmployee = async (id, body) => {
+  const data = await api.put(`/employees/${id}`, body).then((response) => response.data);
+
+  return data;
+};
