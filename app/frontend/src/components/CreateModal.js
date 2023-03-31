@@ -1,11 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import CurrencyInput from 'react-currency-input-field';
 import { validationForm } from '../assets/validationForm';
 import Context from '../context/Context';
 import { createEmployee, getAllEmployees, updateEmployee } from '../services/api';
 import Button from './Button';
-import Text from './Text';
+import Form from './Form';
+import Input from './Input';
+import Select from './Select';
+import Title from './Title';
 
 const customStyles = {
   content: {
@@ -20,13 +24,12 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-// eslint-disable-next-line react/prop-types
 function CreateModal({ text, isOpen, close, editInfo = {} }) {
   const {
-    // allEmployees,
     allDepartment,
     setAllEmployees,
     setFilterEmployees,
+    handleSubmit,
   } = useContext(Context);
 
   const [name, setName] = useState('');
@@ -49,10 +52,6 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
     };
     editMode(editInfo);
   }, [editInfo]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
 
   const getDepartmentId = (value) => {
     const [{ id }] = allDepartment.filter(({ department }) => department === value);
@@ -111,27 +110,30 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
       onRequestClose={ close }
       style={ customStyles }
     >
-      <Text text={ text } />
-      <form onSubmit={ handleSubmit }>
-        <label>
+      <Title title={ text } />
+      <Form onSubmit={ handleSubmit }>
+        <label htmlFor="input-name">
           Nome:
-          <input
+          <Input
+            id="input-name"
             type="text"
             value={ name }
             onChange={ ({ target }) => setName(target.value) }
           />
         </label>
-        <label>
+        <label htmlFor="input-cpf">
           CPF:
-          <input
+          <Input
+            id="input-cpf"
             type="text"
             value={ cpf }
             onChange={ ({ target }) => setCpf(target.value) }
           />
         </label>
-        <label>
+        <label htmlFor="select-department-form">
           Departamento:
-          <select
+          <Select
+            id="select-department-form"
             value={ departmentName }
             onChange={ ({ target }) => getDepartmentId(target.value) }
           >
@@ -139,12 +141,12 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
             {allDepartment.map(({ department, id }) => (
               <option key={ id }>{department}</option>
             ))}
-          </select>
+          </Select>
         </label>
-        <label htmlFor="salary-input">
+        <label htmlFor="input-salary">
           Salário:
           <CurrencyInput
-            id="salary-input"
+            id="input-salary"
             allowDecimals={ false }
             prefix="R$ "
             defaultValue={ 0 }
@@ -152,15 +154,16 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
             onValueChange={ (value) => setSalary(value) }
           />
         </label>
-        <label>
+        <label htmlFor="input-dateOfBirth">
           Data de Nascimento:
-          <input
+          <Input
+            id="input-dateOfBirth"
             type="date"
             value={ dateOfBirth }
             onChange={ ({ target }) => setDateOfBirth(target.value) }
           />
         </label>
-      </form>
+      </Form>
       <Button
         onClick={ cancelOnClick }
         type="reset"
@@ -178,5 +181,18 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
     </Modal>
   );
 }
+
+CreateModal.propTypes = {
+  text: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  editInfo: PropTypes.shape({
+    id: PropTypes.node,
+    name: PropTypes.string,
+    cpf: PropTypes.string,
+    salary: PropTypes.node,
+    dateOfBirth: PropTypes.string,
+  }),
+};
 
 export default CreateModal;

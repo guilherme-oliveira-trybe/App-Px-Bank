@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-// import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 import Context from '../context/Context';
 import Button from './Button';
 import Text from './Text';
@@ -19,9 +19,9 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-// eslint-disable-next-line react/prop-types
 function ExcludeModal({ name, cpf, id }) {
-  const { excludeModal,
+  const {
+    excludeModal,
     closeExcludeModal,
     setAllEmployees,
     setFilterEmployees,
@@ -52,6 +52,10 @@ function ExcludeModal({ name, cpf, id }) {
   );
 }
 
-// ReactDOM.render(<ExcludeModal />, appElement);
+ExcludeModal.propTypes = {
+  name: PropTypes.string,
+  cpf: PropTypes.string,
+  id: PropTypes.number,
+}.isRequired;
 
 export default ExcludeModal;
