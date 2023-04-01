@@ -45,7 +45,7 @@ function ExcludeModal({ name, cpf, id }) {
     >
       <Text text="Deseja excluir o funcionário abaixo?" />
       <Text text={ name } />
-      <Text text={ cpf } />
+      <Text text={ `CPF: ${cpf}` } />
       <Button onClick={ () => closeModal('excludeModal') }>Cancelar</Button>
       <Button onClick={ handleOnClick }>Excluir</Button>
     </Modal>
