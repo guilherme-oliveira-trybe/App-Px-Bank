@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf ./dist",
     "build": "tsc",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "initialize": "npm run build && npm run db:reset",
+    "db:create": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed --seed departments.js",
+    "initialize": "npm run build && npm run db:create",
     "dev": "ts-node-dev src/server.ts",
     "start": "node dist/src/server.js"
   },
