@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
@@ -10,6 +11,7 @@ import Form from './Form';
 import Input from './Input';
 import Select from './Select';
 import Title from './Title';
+import styles from './CreateModal.module.css';
 
 const customStyles = {
   content: {
@@ -112,57 +114,59 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
     >
       <Title title={ text } />
       <Form onSubmit={ handleSubmit }>
-        <label htmlFor="input-name">
-          Nome:
-          <Input
-            id="input-name"
-            type="text"
-            value={ name }
-            onChange={ ({ target }) => setName(target.value) }
-          />
-        </label>
-        <label htmlFor="input-cpf">
-          CPF:
-          <Input
-            id="input-cpf"
-            type="text"
-            value={ cpf }
-            onChange={ ({ target }) => setCpf(target.value) }
-          />
-        </label>
-        <label htmlFor="select-department-form">
-          Departamento:
-          <Select
-            id="select-department-form"
-            value={ departmentName }
-            onChange={ ({ target }) => getDepartmentId(target.value) }
-          >
-            <option value="" disabled>Selecione o Departamento</option>
-            {allDepartment.map(({ department, id }) => (
-              <option key={ id }>{department}</option>
-            ))}
-          </Select>
-        </label>
-        <label htmlFor="input-salary">
-          Salário:
-          <CurrencyInput
-            id="input-salary"
-            allowDecimals={ false }
-            prefix="R$ "
-            defaultValue={ 0 }
-            value={ salary }
-            onValueChange={ (value) => setSalary(value) }
-          />
-        </label>
-        <label htmlFor="input-dateOfBirth">
-          Data de Nascimento:
-          <Input
-            id="input-dateOfBirth"
-            type="date"
-            value={ dateOfBirth }
-            onChange={ ({ target }) => setDateOfBirth(target.value) }
-          />
-        </label>
+        <div className={ styles.container }>
+          <label htmlFor="input-name">
+            Nome:
+            <Input
+              id="input-name"
+              type="text"
+              value={ name }
+              onChange={ ({ target }) => setName(target.value) }
+            />
+          </label>
+          <label htmlFor="input-cpf">
+            CPF:
+            <Input
+              id="input-cpf"
+              type="text"
+              value={ cpf }
+              onChange={ ({ target }) => setCpf(target.value) }
+            />
+          </label>
+          <label htmlFor="select-department-form">
+            Departamento:
+            <Select
+              id="select-department-form"
+              value={ departmentName }
+              onChange={ ({ target }) => getDepartmentId(target.value) }
+            >
+              <option value="" disabled>Selecione o Departamento</option>
+              {allDepartment.map(({ department, id }) => (
+                <option key={ id }>{department}</option>
+              ))}
+            </Select>
+          </label>
+          <label htmlFor="input-salary">
+            Salário:
+            <CurrencyInput
+              id="input-salary"
+              allowDecimals={ false }
+              prefix="R$ "
+              defaultValue={ 0 }
+              value={ salary }
+              onValueChange={ (value) => setSalary(value) }
+            />
+          </label>
+          <label htmlFor="input-dateOfBirth">
+            Data de Nascimento:
+            <Input
+              id="input-dateOfBirth"
+              type="date"
+              value={ dateOfBirth }
+              onChange={ ({ target }) => setDateOfBirth(target.value) }
+            />
+          </label>
+        </div>
       </Form>
       <Button
         onClick={ cancelOnClick }

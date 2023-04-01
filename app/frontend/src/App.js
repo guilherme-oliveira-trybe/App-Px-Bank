@@ -1,9 +1,9 @@
-import './App.css';
+import styles from './App.module.css';
 import ListEmployees from './pages/ListEmployees';
 
 function App() {
   return (
-    <main className="App">
+    <main className={ styles.container }>
       <ListEmployees />
     </main>
   );

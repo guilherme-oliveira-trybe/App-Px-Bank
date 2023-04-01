@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Button.module.css';
 
 function Button({ children, type, onClick, disabled = false }) {
   return (
@@ -7,6 +8,7 @@ function Button({ children, type, onClick, disabled = false }) {
       type={ type }
       onClick={ onClick }
       disabled={ disabled }
+      className={ styles.button }
     >
       {children}
     </button>

@@ -5,6 +5,7 @@ import Context from '../context/Context';
 import Button from './Button';
 import CreateModal from './CreateModal';
 import ExcludeModal from './ExcludeModal';
+import styles from './TableEmployees.module.css';
 
 function TableEmployees() {
   const INITIAL_STATE = {
@@ -35,50 +36,52 @@ function TableEmployees() {
   };
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Departamento</th>
-          <th>Salário</th>
-          <th>Data de Nascimento</th>
-          <th>Opções</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filterEmployees.map((employee) => (
-          <tr key={ employee.id }>
-            <td>{employee.name}</td>
-            <td>{employee.departmentName.department}</td>
-            <td>{formatSalary(employee.salary)}</td>
-            <td>{formatDate(employee.dateOfBirth)}</td>
-            <td>
-              <Button onClick={ () => editOnClick(employee) }>
-                Editar
-
-              </Button>
-              <Button
-                onClick={ () => excluseOnClick(employee) }
-              >
-                Excluir
-
-              </Button>
-            </td>
+    <div className={ styles.container }>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Departamento</th>
+            <th>Salário</th>
+            <th>Data de Nascimento</th>
+            <th>Opções</th>
           </tr>
-        ))}
-        <ExcludeModal
-          name={ employeeData.name }
-          cpf={ employeeData.cpf }
-          id={ employeeData.id }
-        />
-        <CreateModal
-          isOpen={ modal.editModal }
-          text="Editar Funcionário"
-          close={ () => closeModal('editModal') }
-          editInfo={ employeeData }
-        />
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {filterEmployees.map((employee) => (
+            <tr key={ employee.id }>
+              <td>{employee.name}</td>
+              <td>{employee.departmentName.department}</td>
+              <td>{formatSalary(employee.salary)}</td>
+              <td>{formatDate(employee.dateOfBirth)}</td>
+              <td>
+                <Button onClick={ () => editOnClick(employee) }>
+                  Editar
+
+                </Button>
+                <Button
+                  onClick={ () => excluseOnClick(employee) }
+                >
+                  Excluir
+
+                </Button>
+              </td>
+            </tr>
+          ))}
+          <ExcludeModal
+            name={ employeeData.name }
+            cpf={ employeeData.cpf }
+            id={ employeeData.id }
+          />
+          <CreateModal
+            isOpen={ modal.editModal }
+            text="Editar Funcionário"
+            close={ () => closeModal('editModal') }
+            editInfo={ employeeData }
+          />
+        </tbody>
+      </table>
+    </div>
   );
 }
 

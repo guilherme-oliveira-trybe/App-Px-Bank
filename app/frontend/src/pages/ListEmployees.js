@@ -5,6 +5,8 @@ import TableEmployees from '../components/TableEmployees';
 import Context from '../context/Context';
 import { getAllDepartments, getAllEmployees } from '../services/api';
 import CreateModal from '../components/CreateModal';
+import styles from './ListEmployees.module.css';
+import Title from '../components/Title';
 
 function ListEmployees() {
   const {
@@ -31,7 +33,8 @@ function ListEmployees() {
   }, [setAllDepartment, setAllEmployees, setFilterEmployees]);
 
   return (
-    <section>
+    <section className={ styles.container }>
+      <Title title="Cadastro de Funcionários" />
       <FilterEmployee />
       <TableEmployees />
       <Button
