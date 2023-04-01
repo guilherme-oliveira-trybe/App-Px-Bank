@@ -1,7 +1,15 @@
 version: "3"
 
 services:
-  node:
+  frontend:
+    container_name: px_bank_frontend
+    build: ./frontend
+    ports:
+      - 3000:3000
+    working_dir: /app-frontend
+    depends_on:
+      - backend
+  backend:
     build: ./backend
     container_name: px_bank_backend
     tty: true
@@ -9,6 +17,8 @@ services:
     command: sh
     restart: unless-stopped
     working_dir: /app-backend
+    depends_on:
+      - db
     volumes:
       - ./backend:/app-backend
     ports:
@@ -19,7 +29,6 @@ services:
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=3306
-
   db:
     image: mysql:8.0.32
     container_name: px_bank_db
