@@ -28,7 +28,7 @@ docker exec -it px_bank_backend sh
 ```
 
 ```
-npm initialize
+npm run initialize
 ```
 
 ```
