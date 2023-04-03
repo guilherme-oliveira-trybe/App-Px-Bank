@@ -41,8 +41,6 @@ function CreateModal({ text, isOpen, close, editInfo = {} }) {
   const [salary, setSalary] = useState();
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-  console.log(editInfo);
-
   useEffect(() => {
     const editMode = (values) => {
       if (values.id) {
