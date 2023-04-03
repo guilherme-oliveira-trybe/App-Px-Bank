@@ -10,7 +10,7 @@
     "build": "tsc",
     "db:create": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed --seed 01-departments.js",
-    "prestart": "npm run build && npm run db:create",
+    "initialize": "npm run build && npm run db:create",
     "dev": "ts-node-dev src/server.ts",
     "start": "node dist/src/server.js"
   },
